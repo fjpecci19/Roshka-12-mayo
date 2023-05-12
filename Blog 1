@@ -1,0 +1,39 @@
+CREATE TABLE usuarios (
+  id integer PRIMARY KEY,
+  nombre varchar(50) NOT NULL,
+  apellido varchar(50) NOT NULL,
+  apodo varchar(50) NOT NULL,
+  seguidores integer
+);
+
+CREATE TABLE posteos (
+  id integer PRIMARY KEY,
+  nombrearticulo varchar(50) NOT NULL,
+  suscriptores integer
+);
+
+CREATE TABLE comentarios (
+  id integer PRIMARY KEY,
+  comentario varchar(50) NOT NULL
+);
+
+CREATE TABLE usuarios_posteos (
+  usuarios_id integer,
+  posteos_id integer,
+  PRIMARY KEY (usuarios_id, posteos_id)
+);
+
+ALTER TABLE usuarios_posteos ADD FOREIGN KEY (usuarios_id) REFERENCES usuarios (id);
+
+ALTER TABLE usuarios_posteos ADD FOREIGN KEY (posteos_id) REFERENCES posteos (id);
+
+
+CREATE TABLE posteos_comentarios (
+  posteos_id integer,
+  comentarios_id integer,
+  PRIMARY KEY (posteos_id, comentarios_id)
+);
+
+ALTER TABLE posteos_comentarios ADD FOREIGN KEY (posteos_id) REFERENCES posteos (id);
+
+ALTER TABLE posteos_comentarios ADD FOREIGN KEY (comentarios_id) REFERENCES comentarios (id);
