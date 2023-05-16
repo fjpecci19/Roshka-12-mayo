@@ -1,0 +1,12 @@
+--Top clientes con más facturas
+select c.nombre, count(cliente_id) as suma from factura f, cliente c
+
+WHERE f.cliente_id = c.id group by cliente_id, nombre order by suma DESC;
+
+--Top clientes que más gastaron
+select sum(fd.cantidad * p.precio), c.id, c.nombre, c.apellido
+from factura f, factura_detalle fd, producto p, cliente c 
+
+WHERE f.id = fd.factura_id AND fd.producto_id = p.id AND c.id = f.cliente_id
+
+group by c.id, c.nombre, c.apellido order by sum DESC;
